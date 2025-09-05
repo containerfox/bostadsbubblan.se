@@ -8,6 +8,11 @@
       font-family: sans-serif;
       text-align: center;
       margin-top: 5rem;
+      background-color: #f2f2f2;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
     }
     button {
       padding: 1rem 2rem;
@@ -17,6 +22,7 @@
       background: #0077cc;
       color: white;
       cursor: pointer;
+      transition: background 0.3s;
     }
     button:hover {
       background: #005fa3;
@@ -25,18 +31,19 @@
       margin-top: 2rem;
       font-size: 1.5rem;
       font-weight: bold;
+      display: none;
     }
     #counter {
       margin-top: 2rem;
       font-size: 1rem;
       color: #444;
     }
-  </style> 
+  </style>
 </head>
 <body>
   <h1>Har bostadsbubblan spruckit?</h1>
   <button id="checkBtn">Klicka för att se svaret</button>
-  <p id="answer" style="display:none;">Nej! Kolla gärna igen imorgon!</p>
+  <p id="answer">Nej! Kolla gärna igen imorgon!</p>
   <p id="counter"></p>
 
   <script>
@@ -45,22 +52,19 @@
     const counterEl = document.getElementById("counter");
 
     btn.addEventListener("click", () => {
+      // Visa spoiler
       answer.style.display = "block";
 
-      // Öka räknaren via CounterAPI
-      fetch("https://counterapi.dev/api/bostadsbubblan/visits/up", {
-        headers: {
-          "Authorization": "Bearer ut_imeOqlsTP7gxfF3g5ocdIXchEsD7OcHQJIeXN3Ph"
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        counterEl.innerText =
-          "Så här många personer har hittills kollat: " + data.count;
-      })
-      .catch(() => {
-        counterEl.innerText = "(kunde inte hämta räknaren just nu)";
-      });
+      // Öka counter via CounterAPI
+      fetch("https://counterapi.dev/api/bubbla/bubbla/up")
+        .then(res => res.json())
+        .then(data => {
+          counterEl.innerText =
+            "Så här många personer har hittills kollat: " + data.count;
+        })
+        .catch(() => {
+          counterEl.innerText = "(kunde inte hämta räknaren just nu)";
+        });
     });
   </script>
 </body>
