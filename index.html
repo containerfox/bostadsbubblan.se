@@ -2,17 +2,12 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
-  <title>Bostadsbubblan.se</title>
+  <title>Bostadsbubblan</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
       margin-top: 5rem;
-      background-color: #f2f2f2;
-    }
-    h1 {
-      font-size: 2rem;
-      color: #333;
     }
     button {
       padding: 1rem 2rem;
@@ -22,49 +17,26 @@
       background: #0077cc;
       color: white;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    button:hover {
-      background: #005fa3;
-    }
-    #answer {
+    p.answer {
       margin-top: 2rem;
       font-size: 1.5rem;
       font-weight: bold;
       display: none;
     }
-    #counter {
-      margin-top: 2rem;
-      font-size: 1rem;
-      color: #444;
-    }
   </style>
 </head>
 <body>
   <h1>Har bostadsbubblan spruckit?</h1>
-  <button id="checkBtn">Klicka för att se svaret</button>
-  <p id="answer">Nej! Kolla gärna igen imorgon!</p>
-  <p id="counter"></p>
+  <button id="spoilerBtn">Klicka för att se svaret</button>
+  <p class="answer" id="answer">Nej! Kolla gärna igen imorgon!</p>
 
   <script>
-    const btn = document.getElementById("checkBtn");
+    const btn = document.getElementById("spoilerBtn");
     const answer = document.getElementById("answer");
-    const counterEl = document.getElementById("counter");
 
     btn.addEventListener("click", () => {
-      // Visa spoiler
       answer.style.display = "block";
-
-      // Öka counter via CounterAPI
-      fetch("https://counterapi.dev/api/bubbla/bubbla/up")
-        .then(res => res.json())
-        .then(data => {
-          counterEl.innerText =
-            "Så här många personer har hittills kollat: " + data.count;
-        })
-        .catch(() => {
-          counterEl.innerText = "(kunde inte hämta räknaren just nu)";
-        });
     });
   </script>
 </body>
